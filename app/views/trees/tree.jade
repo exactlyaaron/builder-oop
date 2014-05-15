@@ -1,0 +1,12 @@
+.tree(data-id=tree._id.toString(), class=tree.getClass())
+  .tree-image
+  .stats
+    .height #{tree.height} in
+    .health= tree.isHealthy ? 'healthy' : 'plagued'
+    .controls
+      if(tree.isHealthy && !tree.isChopped)
+        button.grow Grow
+      .clear
+      if(tree.height > 24 && tree.isHealthy && !tree.isChopped)
+        button.chop Chop
+    .clear

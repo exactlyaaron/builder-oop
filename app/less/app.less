@@ -1,0 +1,162 @@
+body {
+  background-color: #40be4f;
+  background: url(/img/bg.png) no-repeat center center fixed;
+  background-size:cover;
+}
+
+*:focus {
+  outline:none;
+}
+
+#container {
+  width:80%;
+  margin:0 auto;
+}
+
+input {
+  border:1px solid #555;
+  border-radius:2px;
+  padding:5px;
+  color:#333;
+}
+
+button#login {
+  padding:5px;
+  border:1px solid #40be4f;
+  background-color:#40be4f;
+  color:#fff;
+  border-radius: 2px;
+}
+
+
+
+.clear {
+  width:100%;
+  clear:both;
+}
+
+.inline {
+  display:inline-block;
+}
+
+h1.inline {
+  color: #fff;
+  margin: 20px 25px 0 0;
+  text-shadow:0px 2px 0px #111;
+  text-indent:-9999px;
+  background:url(/img/logo.png) no-repeat;
+  background-size: 100% auto;
+  width: 250px;
+  height:85px;
+  float:left;
+}
+
+#controls.inline {
+  float:left;
+  margin-top:50px;
+}
+
+p.inline {
+  font-size: 12px;
+  margin-right:5px;
+}
+
+#dashboard {
+  padding:20px 25px;
+  margin: 10px 0 0 0;
+  color:#eee;
+  border-radius:2px;
+  margin-bottom:10px;
+  background-color:#222;
+  display:inline-block;
+  box-shadow:inset 0px 0px 10px #000;
+
+  #user, #wood, #cash {
+    display:inline-block;
+    background-color:#444;
+    padding:10px 20px;
+    margin: 0 10px 0 0;
+    border-radius:2px;
+  }
+
+  button {
+    color: #fff;
+    background-color:#40be4f;
+    border:none;
+    padding:5px 10px;
+    margin: 10px 10px 0 0;
+    border-radius:2px;
+  }
+}
+
+.tree {
+  display:inline-block;
+  margin:5px;
+  background-color:#222;
+  color:#fff;
+  border-radius: 2px;
+  border:2px solid #111;
+  box-shadow:0px 0px 10px 1px #111;
+
+  .stats {
+    font-size: 11px;
+    padding:15px 5px 10px 5px;
+    position:relative;
+
+    .health {
+      color:#7ed833;
+    }
+
+    .controls {
+      position:absolute;
+      right:5px;
+      top:8px;
+    }
+
+    .controls button.grow, .controls button.chop {
+      float:right;
+      font-size:12px;
+      color:#333;
+    }
+  }
+}
+
+.tree > .tree-image {
+  width:100px;
+  height:100px;
+  background-color:#333;
+  border-radius:2px;
+}
+
+.seed > .tree-image {
+  background-image:url(/img/seed.jpg);
+}
+
+.sapling > .tree-image{
+  background-image:url(/img/sapling.jpg);
+}
+
+.treenager > .tree-image{
+  background-image:url(/img/treenager.jpg);
+}
+
+.adult > .tree-image {
+  background-image:url(/img/adult.jpg);
+}
+
+.chopped > .tree-image {
+  background-image:url(/img/stump.jpg);
+}
+
+.dead > .tree-image{
+  background-image:url(/img/dead.jpg);
+
+  .tree {
+
+  }
+}
+
+
+.tree.dead .stats .health{
+  color:red !important;
+}
