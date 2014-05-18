@@ -7,20 +7,29 @@ var audioChop, audioBeanstalk;
 
   $(document).ready(init);
 
-  //var timer;
-
   function init(){
     $('#login').click(login);
     $('#dashboard').on('click', '#plant',plant);
     $('#dashboard').on('click', '#getforest', getForest);
+    $('#dashboard').on('click', '#showhouse', showHouse);
     $('#dashboard').on('click', '#sellwood', sellWood);
     $('#forest').on('click', '.grow', grow);
     $('#forest').on('click', '.chop', chop);
     $('#dashboard').on('click', '#purchase-autogrow', purchaseAutoGrow);
     $('#dashboard').on('click', '#purchase-autoseed', purchaseAutoSeed);
+    $('#dashboard').on('click', '#purchase-autoroot', purchaseAutoRoot);
 
     preloadAssets();
+
+    $('#house-wrapper').hide();
   }
+
+  function showHouse(){
+    $('#forest').fadeOut();
+    $('#house-wrapper').fadeIn();
+  }
+
+
 
   function purchaseAutoGrow(){
     var userId = $('#user').attr('data-id');
@@ -31,7 +40,6 @@ var audioChop, audioBeanstalk;
         $('#dashboard').empty().append(html);
       });
     });
-
   }
 
   function purchaseAutoSeed(){
@@ -43,7 +51,17 @@ var audioChop, audioBeanstalk;
         $('#dashboard').empty().append(html);
       });
     });
+  }
 
+  function purchaseAutoRoot(){
+    var userId = $('#user').attr('data-id');
+    ajax(`/users/${userId}/purchase/autoroot`, 'put', null, html => {
+      $('#items').empty().append(html);
+
+      ajax(`/dashboard/${userId}`, 'get', null, html =>{
+        $('#dashboard').empty().append(html);
+      });
+    });
   }
 
   function preloadAssets(){
@@ -86,7 +104,7 @@ var audioChop, audioBeanstalk;
   function grow(){
     var tree = $(this).closest('.tree');
     var treeId = tree.attr('data-id');
-    ajax(`/trees/${treeId}/grow`, 'put', null, html =>{
+    ajax(`/trees/${treeId}/grow`, 'put', null, html => {
       tree.replaceWith(html);
       if($(html).hasClass('beanstalk')){
         audioBeanstalk.play();
@@ -95,15 +113,17 @@ var audioChop, audioBeanstalk;
   }
 
   function getForest(){
+    $('#house-wrapper').fadeOut();
+    $('#forest').fadeIn();
     var userId = $('#user').attr('data-id');
-    ajax(`/trees?userId=${userId}`, 'get', null, html =>{
+    ajax(`/trees?userId=${userId}`, 'get', null, html => {
       $('#forest').empty().append(html);
     });
   }
 
   function plant(){
     var userId = $('#user').attr('data-id');
-    ajax('/trees/plant', 'post', {userId:userId}, html =>{
+    ajax('/trees/plant', 'post', {userId:userId}, html => {
       $('#forest').append(html);
     });
   }
@@ -120,8 +140,6 @@ var audioChop, audioBeanstalk;
       ajax(`/items/${userId}`, 'get', null, html => {
         $('#items').empty().append(html);
       });
-
-
     });
   }
 

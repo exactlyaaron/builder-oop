@@ -7,6 +7,50 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+#house-wrapper {
+  height:400px;
+  background-color:#fc0;
+
+  #house {
+
+    #house-image{
+      width: 90%;
+      height: 300px;
+      margin: 20px auto;
+      background-color:#555;
+    }
+
+    #guards {
+
+      .guard {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        background-color:#777;
+      }
+    }
+  }
+}
+
+#house-upgrades {
+  .size-upgrade {
+    width:60px;
+    height: 60px;
+    border: 3px solid #555;
+  }
+
+  .guard-upgrade {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #555;
+  }
+}
+
+#store {
+  height:400px;
+  background-color:green;
+}
+
 *:focus {
   outline:none;
 }
@@ -115,7 +159,7 @@ p.inline {
     .item-wrapper {
       float:left;
       display:inline-block;
-      margin:0 5px 5px 0;
+      margin:0 10px 5px 0;
 
       p {
         font-size: 11px;
@@ -125,8 +169,8 @@ p.inline {
       }
     }
     .item {
-      width:50px;
-      height:50px;
+      width:60px;
+      height:60px;
       background-size:cover;
       border-right: 3px solid #626262;
       border-bottom: 3px solid #626262;
@@ -136,7 +180,7 @@ p.inline {
     }
 
     input {
-      width:50px;
+      width:60px;
       padding:0;
       font-size:11px;
     }

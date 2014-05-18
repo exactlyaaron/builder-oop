@@ -11,8 +11,12 @@
   .buttons
     button#plant Plant Seed
     button#getforest Show Forest
+    button#showhouse Show House
     if(user.isAutoGrowAvailable)
      button#purchase-autogrow AutoGrow
 
     if(user.isAutoSeedAvailable)
      button#purchase-autoseed AutoSeed
+
+    if(user.isAutoRootAvailable)
+     button#purchase-autoroot AutoRoot

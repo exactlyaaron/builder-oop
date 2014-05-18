@@ -27,16 +27,12 @@ class User{
   }
 
   purchase(item){
-    console.log('-----------USER BEFORE PURCHASE-------');
-    console.log(this);
 
     if(item.cost <= this.cash){
       this.cash -= item.cost;
       this.items.push(item);
     }
 
-    console.log('-----------USER AFTER PURCHASE-------');
-    console.log(this);
   }
 
   get isAutoGrowAvailable(){
@@ -48,6 +44,11 @@ class User{
   get isAutoSeedAvailable(){
     var isPresent = _(this.items).any(i=>i.type === 'autoseed');
     return (this.cash >= 75000) && (!isPresent);
+  }
+
+  get isAutoRootAvailable(){
+    var isPresent = _(this.items).any(i=>i.type === 'autoroot');
+    return (this.cash >= 85000) && (!isPresent);
   }
 
   static findUserById(userId, fn){

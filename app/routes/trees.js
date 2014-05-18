@@ -49,7 +49,33 @@ exports.chop = (req, res)=>{
             res.render('trees/tree', {tree:tree});
           });
         });
-
     });
   });
+};
+
+exports.root = (req, res)=>{
+
+  Tree.findByTreeId(req.params.treeId, tree=>{
+    console.log('---NODEEE----EXPORTS.ROOT');
+    console.log(tree);
+
+    tree.root(tree._id, ()=>{
+      res.render('trees/tree', {tree:tree});
+    });
+    // tree.save(()=>{
+    //   res.render('trees/tree', {tree:tree});
+    // });
+  });
+
+
+  // Tree.findByTreeId(req.params.treeId, tree=>{
+  //   User.findUserById(req.params.userId, user=>{
+  //     tree.chop(user);
+  //       tree.save(()=>{
+  //         user.save(()=>{
+  //           res.render('trees/tree', {tree:tree});
+  //         });
+  //       });
+  //   });
+  // });
 };

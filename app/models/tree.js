@@ -49,7 +49,7 @@ class Tree{
     }
 
     if(this.isChopped){
-      classes.push('chopped');
+      classes.push('chopped dead');
     }
 
     if(this.isBeanstalk){
@@ -94,6 +94,12 @@ class Tree{
     this.height = 0;
     this.isChopped = true;
     this.isHealthy = false;
+  }
+
+  root(treeId, fn){
+    trees.findAndRemove({_id: treeId},()=>{
+      fn();
+    });
   }
 
   save(fn){

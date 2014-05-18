@@ -3,7 +3,23 @@
   init();
   function init() {
     $('#autogrow').click(grow);
-    $('#maxheight').val('10');
+    slider();
+  }
+  function slider() {
+    $('#slider').noUiSlider({
+      start: [20],
+      range: {
+        'min': [5],
+        'max': [9999]
+      },
+      serialization: {
+        lower: [$.Link({target: $('#value')})],
+        format: {
+          decimals: 0,
+          postfix: 'ft'
+        }
+      }
+    });
   }
   var isOn = false;
   var timer;
@@ -42,8 +58,8 @@
   }
   function autoChop(tree) {
     var height = parseFloat($(tree).children().children().first().text());
-    var maxHeight = $('#maxheight').val() * 1;
-    if (height > $('#maxheight').val()) {
+    var maxHeight = parseFloat($('#value').val());
+    if (height > maxHeight) {
       var treeId = tree.attr('data-id');
       var userId = $('#user').attr('data-id');
       ajax(("/trees/" + treeId + "/chop/" + userId), 'put', null, (function(html) {

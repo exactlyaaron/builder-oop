@@ -7,12 +7,19 @@ var audioChop,
     $('#login').click(login);
     $('#dashboard').on('click', '#plant', plant);
     $('#dashboard').on('click', '#getforest', getForest);
+    $('#dashboard').on('click', '#showhouse', showHouse);
     $('#dashboard').on('click', '#sellwood', sellWood);
     $('#forest').on('click', '.grow', grow);
     $('#forest').on('click', '.chop', chop);
     $('#dashboard').on('click', '#purchase-autogrow', purchaseAutoGrow);
     $('#dashboard').on('click', '#purchase-autoseed', purchaseAutoSeed);
+    $('#dashboard').on('click', '#purchase-autoroot', purchaseAutoRoot);
     preloadAssets();
+    $('#house-wrapper').hide();
+  }
+  function showHouse() {
+    $('#forest').fadeOut();
+    $('#house-wrapper').fadeIn();
   }
   function purchaseAutoGrow() {
     var userId = $('#user').attr('data-id');
@@ -26,6 +33,15 @@ var audioChop,
   function purchaseAutoSeed() {
     var userId = $('#user').attr('data-id');
     ajax(("/users/" + userId + "/purchase/autoseed"), 'put', null, (function(html) {
+      $('#items').empty().append(html);
+      ajax(("/dashboard/" + userId), 'get', null, (function(html) {
+        $('#dashboard').empty().append(html);
+      }));
+    }));
+  }
+  function purchaseAutoRoot() {
+    var userId = $('#user').attr('data-id');
+    ajax(("/users/" + userId + "/purchase/autoroot"), 'put', null, (function(html) {
       $('#items').empty().append(html);
       ajax(("/dashboard/" + userId), 'get', null, (function(html) {
         $('#dashboard').empty().append(html);
@@ -71,6 +87,8 @@ var audioChop,
     }));
   }
   function getForest() {
+    $('#house-wrapper').fadeOut();
+    $('#forest').fadeIn();
     var userId = $('#user').attr('data-id');
     ajax(("/trees?userId=" + userId), 'get', null, (function(html) {
       $('#forest').empty().append(html);

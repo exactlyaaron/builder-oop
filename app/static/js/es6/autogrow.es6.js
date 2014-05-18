@@ -9,7 +9,34 @@
 
   function init(){
     $('#autogrow').click(grow);
-    $('#maxheight').val('10');
+    //$('#maxheight').val('10');
+    slider();
+  }
+
+  function slider(){
+
+    $('#slider').noUiSlider({
+    	start: [ 20 ],
+    	range: {
+    		'min': [   5 ],
+    		'max': [ 9999 ]
+    	},
+      serialization: {
+    		lower: [
+    		// Write the values to
+    		// an input with id 'field'
+    			$.Link({
+    				target: $('#value')
+    			})
+    		],
+    		format: {
+    		// Set formatting
+    			decimals: 0,
+    			postfix: 'ft'
+    		}
+    	}
+    });
+
   }
 
   var isOn = false;
@@ -57,9 +84,10 @@
 
   function autoChop(tree){
     var height = parseFloat($(tree).children().children().first().text());
-    var maxHeight = $('#maxheight').val() * 1;
 
-    if(height > $('#maxheight').val()){
+    var maxHeight = parseFloat($('#value').val());
+
+    if(height > maxHeight){
 
       var treeId = tree.attr('data-id');
       var userId = $('#user').attr('data-id');

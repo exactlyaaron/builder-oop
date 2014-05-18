@@ -33,8 +33,8 @@ function load(app, fn){
   app.post('/trees/plant', dbg, trees.plant);
   app.get('/trees', dbg, trees.getForest);
   app.put('/trees/:treeId/grow', dbg, trees.grow);
+  app.delete('/trees/:treeId/root', dbg, trees.root);
   app.put('/trees/:treeId/chop/:userId', dbg, trees.chop);
-  //app.put('/trees/:treeId/chop/:userId', dbg, trees.chop);
 
   app.get('/help', dbg, home.help);
   console.log('Routes Loaded');
