@@ -1,7 +1,9 @@
 'use strict';
 
 var traceur = require('traceur');
+var _ = require('lodash');
 var Tree = traceur.require(__dirname + '/../models/tree.js');
+var User = traceur.require(__dirname + '/../models/user.js');
 
 
 exports.plant = (req, res)=>{
@@ -25,12 +27,29 @@ exports.grow = (req, res)=>{
   });
 };
 
-exports.chop = (req, res)=>{
-  Tree.findByTreeId(req.params.treeId, tree=>{
-    tree.chop(()=>{
+exports.autogrow = (req, res)=>{
+  Tree.findAllByUserId(req.params.userId, trees=>{
+    console.log(trees);
+    _(trees).forEach((tree)=>{
+      tree.grow();
       tree.save(()=>{
         res.render('trees/tree', {tree:tree});
       });
+    });
+  });
+};
+
+
+exports.chop = (req, res)=>{
+  Tree.findByTreeId(req.params.treeId, tree=>{
+    User.findUserById(req.params.userId, user=>{
+      tree.chop(user);
+        tree.save(()=>{
+          user.save(()=>{
+            res.render('trees/tree', {tree:tree});
+          });
+        });
+
     });
   });
 };

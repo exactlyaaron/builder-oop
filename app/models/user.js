@@ -10,7 +10,8 @@ class User{
   constructor(username){
     this.username = username;
     this.wood = 0;
-    this.cash = 0;
+    this.cash = 1000000;
+    this.items = [];
   }
 
   save(fn){
@@ -18,20 +19,38 @@ class User{
   }
 
   sell(amount, fn){
-
-    if(amount>this.wood){
-      this.cash += (this.wood / 5);
-      this.wood = 0;
-    } else {
+    if(amount <= this.wood){
       this.wood -= amount;
       this.cash += (amount / 5);
     }
-
     fn();
   }
 
-  static findUserById(userId, fn){
+  purchase(item){
+    console.log('-----------USER BEFORE PURCHASE-------');
+    console.log(this);
 
+    if(item.cost <= this.cash){
+      this.cash -= item.cost;
+      this.items.push(item);
+    }
+
+    console.log('-----------USER AFTER PURCHASE-------');
+    console.log(this);
+  }
+
+  get isAutoGrowAvailable(){
+    var isPresent = _(this.items).any(i=>i.type === 'autogrow');
+    return (this.cash >= 50000) && (!isPresent);
+  }
+
+
+  get isAutoSeedAvailable(){
+    var isPresent = _(this.items).any(i=>i.type === 'autoseed');
+    return (this.cash >= 75000) && (!isPresent);
+  }
+
+  static findUserById(userId, fn){
     userId = Mongo.ObjectID(userId);
     users.findOne({_id:userId}, (err, user)=>{
       user = _.create(User.prototype, user);
@@ -44,6 +63,7 @@ class User{
     username = username.trim().toLowerCase();
     users.findOne({username: username}, (err, user)=>{
       if(user){
+        user = _.create(User.prototype, user);
         fn(user);
       }else{
         user = new User(username);

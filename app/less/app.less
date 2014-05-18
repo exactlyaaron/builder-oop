@@ -1,7 +1,10 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600);
+
 body {
   background-color: #40be4f;
   background: url(/img/bg.png) no-repeat center center fixed;
   background-size:cover;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 *:focus {
@@ -9,23 +12,40 @@ body {
 }
 
 #container {
-  width:80%;
+  width:90%;
   margin:0 auto;
 }
 
 input {
-  border:1px solid #555;
-  border-radius:2px;
+  border-top:3px solid #eee;
+  border-left:3px solid #eee;
+  border-bottom:3px solid #e4e4e4;
+  border-right:3px solid #d0d0d0;
   padding:5px;
   color:#333;
 }
 
 button#login {
-  padding:5px;
-  border:1px solid #40be4f;
+  padding:5px 10px;
   background-color:#40be4f;
   color:#fff;
-  border-radius: 2px;
+  border-right: 3px solid #4fea59;
+  border-bottom: 3px solid #4dd64e;
+  border-top: 3px solid #38a435;
+  border-left: 3px solid #38a135;
+}
+
+button#login:hover {
+  background-color:#35a13c;
+  color:#fff;
+  border-right: 3px solid #49e04c;
+  border-bottom: 3px solid #4bc547;
+  border-top: 3px solid #38a435;
+  border-left: 3px solid #33902f;
+}
+
+button#login:active {
+  background-color:#2e8d2f;
 }
 
 
@@ -51,6 +71,7 @@ h1.inline {
   float:left;
 }
 
+
 #controls.inline {
   float:left;
   margin-top:50px;
@@ -61,60 +82,160 @@ p.inline {
   margin-right:5px;
 }
 
-#dashboard {
-  padding:20px 25px;
-  margin: 10px 0 0 0;
-  color:#eee;
-  border-radius:2px;
-  margin-bottom:10px;
-  background-color:#222;
-  display:inline-block;
-  box-shadow:inset 0px 0px 10px #000;
+  #user-dashboard, #items-dashboard {
+    padding:5px 10px 10px 10px;
+    margin: 10px 0 0 0;
+    color:#eee;
+    margin-bottom:10px;
+    background-color:#222;
+    display:inline-block;
+    float:left;
+    //box-shadow:inset 0px 0px 6px #000;
+    border-right:8px solid #111;
+    border-bottom:8px solid #111;
+    border-top:8px solid #333;
+    border-left:8px solid #444;
+  }
+
+  #user-dashboard {
+    width:60%;
+  }
+
+  #items {
+    float:right;
+    width:30%;
+  }
+
+  #items-dashboard {
+    padding:0px 15px 10px 15px;
+    float:right;
+    margin: 10px 0 0 0;
+    width:80%;
+
+    .item-wrapper {
+      float:left;
+      display:inline-block;
+      margin:0 5px 5px 0;
+
+      p {
+        font-size: 11px;
+        display:inline-block;
+        width:100%;
+        margin-top:0;
+      }
+    }
+    .item {
+      width:50px;
+      height:50px;
+      background-size:cover;
+      border-right: 3px solid #626262;
+      border-bottom: 3px solid #626262;
+      border-top: 3px solid #434343;
+      border-left: 3px solid #4f4f4f;
+      vertical-align: top;
+    }
+
+    input {
+      width:50px;
+      padding:0;
+      font-size:11px;
+    }
+  }
+
+  .on {
+    border-right: 3px solid #4fea59 !important;
+    border-bottom: 3px solid #4dd64e !important;
+    border-top: 3px solid #38a435 !important;
+    border-left: 3px solid #38a135 !important;
+  }
+
 
   #user, #wood, #cash {
     display:inline-block;
     background-color:#444;
-    padding:10px 20px;
+    padding:4px 10px;
     margin: 0 10px 0 0;
-    border-radius:2px;
+    font-size: 14px;
+    border-right: 3px solid #626262;
+    border-bottom: 3px solid #626262;
+    border-top: 3px solid #434343;
+    border-left: 3px solid #4f4f4f;
   }
 
-  button {
-    color: #fff;
-    background-color:#40be4f;
+  #user {
+    font-size: 24px;
+    font-weight: 700;
+    color:#40be4f;
+    background-color: #222;
     border:none;
-    padding:5px 10px;
-    margin: 10px 10px 0 0;
-    border-radius:2px;
+    padding: 0px 10px 0px 0;
   }
-}
+
+  #user-dashboard {
+    button {
+      color: #fff;
+      background-color:#40be4f;
+      border:none;
+      padding:5px 10px;
+
+      margin: 10px 10px 0 0;
+      border-right: 3px solid #4fea59;
+      border-bottom: 3px solid #4dd64e;
+      border-top: 3px solid #38a435;
+      border-left: 3px solid #38a135;
+    }
+
+    button:hover{
+      background-color:#35a13c;
+      color:#fff;
+      border-right: 3px solid #49e04c;
+      border-bottom: 3px solid #4bc547;
+      border-top: 3px solid #38a435;
+      border-left: 3px solid #33902f;
+    }
+
+    button:active {
+      background-color:#2e8d2f;
+    }
+  }
+
 
 .tree {
   display:inline-block;
   margin:5px;
   background-color:#222;
   color:#fff;
+  padding-bottom:5px;
   border-radius: 2px;
-  border:2px solid #111;
+  border-right:3px solid #222;
+  border-bottom:3px solid #111;
+  border-top:3px solid #333;
+  border-left:3px solid #444;
   box-shadow:0px 0px 10px 1px #111;
 
   .stats {
     font-size: 11px;
-    padding:15px 5px 10px 5px;
+    padding:10px 5px 25px 5px;
     position:relative;
 
     .health {
       color:#7ed833;
     }
 
+    .height p, .health p {
+      margin:0;
+      padding:0;
+    }
+
     .controls {
       position:absolute;
-      right:5px;
-      top:8px;
+      margin-top: 5px;
+      bottom:0px;
+
     }
 
     .controls button.grow, .controls button.chop {
-      float:right;
+      float:none;
       font-size:12px;
       color:#333;
     }
@@ -145,7 +266,11 @@ p.inline {
 }
 
 .chopped > .tree-image {
-  background-image:url(/img/stump.jpg);
+  background-image:url(/img/stump.jpg) !important;
+}
+
+.beanstalk > .tree-image {
+  background-image:url(/img/beanstalk.jpg);
 }
 
 .dead > .tree-image{

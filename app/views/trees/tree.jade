@@ -1,12 +1,20 @@
-.tree(data-id=tree._id.toString(), class=tree.getClass())
+.tree(data-id=tree._id.toString(), class=tree.classes)
   .tree-image
   .stats
-    .height #{tree.height} in
-    .health= tree.isHealthy ? 'healthy' : 'plagued'
+    .height
+      - if(!tree.isChopped)
+        p #{(tree.height / 12).toFixed(1)} ft
+      - if(tree.isChopped)
+        p stump
+    //- .health
+    //-   - if(!tree.isChopped)
+    //-     p= tree.isHealthy ? 'healthy' : 'plagued'
+    //-   - if(tree.isChopped)
+    //-     p chopped
+
     .controls
-      if(tree.isHealthy && !tree.isChopped)
+      if(tree.isGrowable)
         button.grow Grow
-      .clear
-      if(tree.height > 24 && tree.isHealthy && !tree.isChopped)
+      if(tree.isChoppable)
         button.chop Chop
     .clear

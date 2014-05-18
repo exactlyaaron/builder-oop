@@ -25,13 +25,16 @@ function load(app, fn){
 
   app.post('/login', dbg, users.login);
   app.get('/dashboard/:userId', dbg, users.dashboard);
+  app.get('/items/:userId', dbg, users.items);
 
-  app.put('/user/:userId/sellwood', dbg, users.sellwood);
+  app.put('/users/:userId/sellwood', dbg, users.sellwood);
+  app.put('/users/:userId/purchase/:item', dbg, users.purchase);
 
   app.post('/trees/plant', dbg, trees.plant);
   app.get('/trees', dbg, trees.getForest);
   app.put('/trees/:treeId/grow', dbg, trees.grow);
-  app.put('/trees/:treeId/chop', dbg, trees.chop);
+  app.put('/trees/:treeId/chop/:userId', dbg, trees.chop);
+  //app.put('/trees/:treeId/chop/:userId', dbg, trees.chop);
 
   app.get('/help', dbg, home.help);
   console.log('Routes Loaded');

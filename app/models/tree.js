@@ -1,7 +1,7 @@
 'use strict';
 
 var trees = global.nss.db.collection('trees');
-var users = global.nss.db.collection('users');
+//var users = global.nss.db.collection('users');
 var Mongo = require('mongodb');
 var _ = require('lodash');
 
@@ -13,24 +13,47 @@ class Tree{
     this.isChopped = false;
   }
 
-  getClass(){
+  get isAdult(){
+    return this.height >= 48;
+  }
+
+  get isBeanstalk(){
+    return (this.height / 12) >= 100;
+  }
+
+  get isChoppable(){
+    return this.isAdult && this.isHealthy && !this.isBeanstalk && !this.isChopped;
+  }
+
+  get isGrowable(){
+    return this.isHealthy && !this.isBeanstalk && !this.isChopped;
+  }
+
+  get classes(){
     var classes = [];
     if(this.height === 0){
       classes.push('seed');
-    } else if(this.height < 12) {
-      classes.push('sapling');
     } else if(this.height < 24) {
+      classes.push('sapling');
+    } else if(!this.isAdult) {
       classes.push('treenager');
     } else {
       classes.push('adult');
     }
 
+
     if(!this.isHealthy){
       classes.push('dead');
+    } else {
+      classes.push('alive');
     }
 
     if(this.isChopped){
       classes.push('chopped');
+    }
+
+    if(this.isBeanstalk){
+      classes.push('beanstalk');
     }
 
     return classes.join(' ');
@@ -38,24 +61,39 @@ class Tree{
   }
 
   grow(){
-    this.height += _.random(0,2);
-    this.isHealthy = _.random(0,100) !== 70;
+    var max = this.isAdult ? this.height * 0.1 : 2;
+    this.height += _.random(0, max, true);
+
+    var deathMax = this.isAdult ? (200-(this.height/12)*0.1) : 200;
+
+    if(deathMax < 10){
+      deathMax = 10;
+    }
+
+    this.isHealthy = _.random(0,deathMax, true) > 1;
   }
 
-  chop(fn){
-    var userId = Mongo.ObjectID(this.userId);
-    var tree = this;
+  // chop(fn){
+  //   var userId = Mongo.ObjectID(this.userId);
+  //   var tree = this;
+  //   this.isChopped = true;
+  //
+  //   users.findOne({_id: userId}, (err, user)=>{
+  //     tree.isChopped = true;
+  //     user.wood += (tree.height / 2);
+  //
+  //     users.save(user, ()=>{
+  //       fn();
+  //     });
+  //   });
+  //
+  // }
+
+  chop(user){
+    user.wood += this.height / 2;
+    this.height = 0;
     this.isChopped = true;
-
-    users.findOne({_id: userId}, (err, user)=>{
-      tree.isChopped = true;
-      user.wood += (tree.height / 2);
-
-      users.save(user, ()=>{
-        fn();
-      });
-    });
-
+    this.isHealthy = false;
   }
 
   save(fn){
@@ -78,13 +116,13 @@ class Tree{
     });
   }
 
-  // static findAllByUserId(userId, fn){
-  //   userId = Mongo.ObjectID(userId);
-  //   trees.find({userId:userId}).toArray((err, objs)=>{
-  //     var forest = objs.map(o=>_.create(Tree.prototype, o));
-  //     fn(forest);
-  //   });
-  // }
+  static findAllByUserId(userId, fn){
+    userId = Mongo.ObjectID(userId);
+    trees.find({userId:userId}).toArray((err, objs)=>{
+      var forest = objs.map(o=>_.create(Tree.prototype, o));
+      fn(forest);
+    });
+  }
 
 }
 

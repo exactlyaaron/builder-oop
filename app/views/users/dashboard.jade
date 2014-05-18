@@ -1,12 +1,18 @@
-p.inline USER:
-#user(data-id=user._id.toString())= user.username
-p.inline LUMBER:
-#wood #{user.wood} logs
-p.inline CASH:
-#cash $ #{user.cash}
-.clear
-button#plant Plant Seed
-button#getforest Show Forest
-form.inline
-  input#sellamount(type='text', placeholder='# of logs to sell')
-  button#sellwood Sell Lumber
+#user-dashboard
+  #user(data-id=user._id.toString())= user.username
+  p.inline LUMBER:
+  #wood #{user.wood.toFixed(1)} logs
+  p.inline CASH:
+  #cash $ #{user.cash}
+  form.inline
+    input#sellamount(type='text', placeholder='# of logs to sell')
+    button#sellwood Sell Lumber
+  .clear
+  .buttons
+    button#plant Plant Seed
+    button#getforest Show Forest
+    if(user.isAutoGrowAvailable)
+     button#purchase-autogrow AutoGrow
+
+    if(user.isAutoSeedAvailable)
+     button#purchase-autoseed AutoSeed
